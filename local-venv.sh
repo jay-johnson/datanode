@@ -7,6 +7,6 @@ export ENV_SCP_VENV_DEACTIVATE="${ENV_SCP_VENV_BIN}/deactivate"
 if [[ -e ${ENV_SCP_VENV_ACTIVATE} ]]; then
     source $ENV_SCP_VENV_ACTIVATE .
 else
-    echo "Did not find Scipype VirtualEnv At Path(${ENV_SCP_VENV_ACTIVATE}). Please install it with: scipype$ ./setup-new-dev.sh"
+    echo "Did not find DataNode VirtualEnv At Path(${ENV_SCP_VENV_ACTIVATE}). Please install it with: datanode $ ./setup-venv.sh"
 fi
 
