@@ -300,7 +300,7 @@ This repository is used with a volume-based deployment methodology at runtime. T
 
     This script logs output to this file inside the container: ``/tmp/post-start.log``. This hook can be extended with your own script by mounting the script into the container and setting this environment variable: **ENV_POSTSTART_SCRIPT** as the absolute path to your script in the container.
 
-.. _start-container.sh: https://github.com/jay-johnson/datanode/blob/master/docker/custom-pre-start.sh
+.. _start-container.sh: https://github.com/jay-johnson/datanode/blob/master/docker/start-container.sh
 .. _plots-start.sh: https://github.com/jay-johnson/datanode/blob/master/plots-start.sh
 .. _compose-local.yml: https://github.com/jay-johnson/datanode/blob/8660da719892cfe018edb0610b6d4174f4dc872b/compose-local.yml#L13
 .. _compose-x11-local.yml: https://github.com/jay-johnson/datanode/blob/master/compose-x11-local.yml
