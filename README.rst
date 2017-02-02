@@ -151,7 +151,7 @@ Here's how to build, start, and stop the Docker container:
 
 #.  Checkout the Analyzed IRIS Images
 
-    After the analysis completes it will save the image files to this folder.
+    After the analysis completes it will save the artifact image files to ``/opt/work/data/src/``. This directory is setup as a mounted volume from the host inside the `compose-local.yml`_ docker compose file (the machine learning artifacts are available outside the Docker container).
 
     ::
 
@@ -302,6 +302,7 @@ This repository is used with a volume-based deployment methodology at runtime. T
 
 .. _start-container.sh: https://github.com/jay-johnson/datanode/blob/master/docker/custom-pre-start.sh
 .. _plots-start.sh: https://github.com/jay-johnson/datanode/blob/master/plots-start.sh
+.. _compose-local.yml: https://github.com/jay-johnson/datanode/blob/8660da719892cfe018edb0610b6d4174f4dc872b/compose-local.yml#L13
 .. _compose-x11-local.yml: https://github.com/jay-johnson/datanode/blob/master/compose-x11-local.yml
 .. _Redis Labs Predict From Cached XGB IPython notebook: https://github.com/jay-johnson/sci-pype/blob/master/examples/ML-IRIS-Redis-Labs-Predict-From-Cached-XGB.ipynb
 
