@@ -13,15 +13,6 @@ lg ""
 lg "Activating Virtual Env"
 source /venv/bin/activate .
 
-if [[ ! -e /opt/.keys.sh ]]; then
-    err "Failed to find Keys: /opt/.keys.sh"
-    echo "Failed to find Keys: /opt/.keys.sh"
-    echo "Cloud Actions will not work unless this file is present"
-else
-    lg "Loading Keys"
-    source /opt/.keys.sh .
-fi
-
 lg "Starting Services"
 
 prestartscript="$ENV_PRESTART_SCRIPT"
@@ -29,15 +20,12 @@ startscript="$ENV_START_SCRIPT"
 poststartscript="$ENV_POSTSTART_SCRIPT"
 customprestartscript="$ENV_CUSTOM_SCRIPT"
 
-if [ "$ENV_DEPLOYMENT_TYPE" != "Custom" ]; then
-
-    if [ -e "$customprestartscript" ]; then
-        lg "Starting Custom Script($customprestartscript)"
-        $customprestartscript &>> $log
-        lg "Done Custom Script($customprestartscript)"
-    else
-        lg "Custom Script does not Exist($customprestartscript)"
-    fi
+if [ -e "$customprestartscript" ]; then
+    lg "Starting Custom Script($customprestartscript)"
+    $customprestartscript &>> $log
+    lg "Done Custom Script($customprestartscript)"
+else
+    lg "Custom Script does not Exist($customprestartscript)"
 fi
 
 if [ -e "$prestartscript" ]; then
