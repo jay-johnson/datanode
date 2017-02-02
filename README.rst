@@ -185,7 +185,7 @@ Here's how to build, start, and stop the Docker container:
 Viewing Plots over X11
 ----------------------
 
-If your system supports X11 forwarding with Docker, you can try the `plots-start.sh`_ start script that loads the `compose-x11-local.yml`_ for exposing your user's X11 session into the container. If your system does not show the image plots, it may be permissions on the host's X11 server that need to be changed with: ``xhost +``. If that still does not work, please refer to the posts I used to set this up the first time on my Fedora 24 host:
+If your system supports X11 forwarding with Docker, you can try the `plots-start.sh`_ script that loads the `compose-x11-local.yml`_ for exposing your user's X11 session into the container. If your system does not show the image plots, it may be permissions on the host's X11 server that need to be changed with: ``xhost +``. If that still does not work, please refer to the posts I used to set this up the first time on my Fedora 24 host:
 
 http://stackoverflow.com/questions/16296753/can-you-run-gui-apps-in-a-docker-container
 http://stackoverflow.com/questions/3453188/matplotlib-display-plot-on-a-remote-machine
