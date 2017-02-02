@@ -9,7 +9,6 @@ services:
     env_file: 
       - ./env/dev.env
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./data:/opt/work/data
       - ./bins:/opt/work/bins
       - ./configs:/opt/work/configs
