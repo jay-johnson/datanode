@@ -27,6 +27,13 @@ from src.pycore                 import PyCore
 
 import pandas as pd
 import numpy as np
+
+# Docker containers need a different backend for plotting:
+# http://stackoverflow.com/questions/3453188/matplotlib-display-plot-on-a-remote-machine
+if str(os.getenv("ENV_SHOW_PLOTS", "0")) == "0":
+    import matplotlib
+    matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 from pandas.io.json         import json_normalize
 

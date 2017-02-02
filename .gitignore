@@ -3,7 +3,8 @@ dn-dev
 
 docker/python2/pyxattr
 docker/python2/pandas-datareader
-
+data/src/*.png
+data/dst/*.png
 data/src/spy.csv
 
 *.pyc
@@ -25,5 +26,4 @@ data/src/spy.csv
 */*/*/*.pyo
 */*/*/*.swp
 */*/*/*.db
-
 
