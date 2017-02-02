@@ -9,7 +9,8 @@ services:
     env_file: 
       - ./env/dev.env
     volumes:
-      - ./bin:/opt/work/bin
+      - ./data:/opt/work/data
+      - ./bins:/opt/work/bins
       - ./configs:/opt/work/configs
       - ./src:/opt/work/src
     network_mode: "host"

@@ -94,6 +94,7 @@ RUN yum update -y && yum install -y \
     openssl-devel \
     libpcap \
     libpcap-devel \
+    tkinter \
     && yum clean all
 
 RUN easy_install pip && \
@@ -111,7 +112,7 @@ ENV ENV_THIRD_PARTY_DIR /opt/work/thirdparty
 ENV ENV_CONFIGS_DIR /opt/work/configs
 
 # Allow running starters from outside the container
-ENV ENV_BIN_DIR /opt/work/bin
+ENV ENV_BIN_DIR /opt/work/bins
 ENV ENV_PRESTART_SCRIPT /opt/tools/pre-start.sh
 ENV ENV_START_SCRIPT /opt/tools/start-services.sh
 ENV ENV_POSTSTART_SCRIPT /opt/tools/post-start.sh
@@ -119,6 +120,7 @@ ENV ENV_CUSTOM_SCRIPT /opt/tools/custom-pre-start.sh
 ENV ENV_DEFAULT_VENV /venv
 ENV ENV_AWS_ACCESS_KEY NOT_A_REAL_KEY
 ENV ENV_AWS_SECRET_KEY NOT_A_REAL_KEY
+ENV ENV_SET_AS_PYTHONPATH /opt/work
 
 ENV ENV_SSH_CREDS /opt/shared/.ssh
 ENV ENV_GIT_CONFIG /opt/shared/.gitconfig
@@ -128,7 +130,7 @@ ENV ENV_AWS_PROFILE default
 RUN mkdir -p -m 777 /opt \
     && mkdir -p -m 777 /opt/deps \
     && mkdir -p -m 777 /opt/work \
-    && mkdir -p -m 777 /opt/work/bin \
+    && mkdir -p -m 777 /opt/work/bins \
     && mkdir -p -m 777 /opt/work/configs \
     && mkdir -p -m 777 /opt/work/data \
     && mkdir -p -m 777 /opt/work/data/dst \
@@ -168,6 +170,4 @@ RUN cp /opt/tools/bashrc /root/.bashrc \
     && chmod 644 /root/.bashrc && chown root:root /root/.bashrc \
     && cat /opt/tools/inputrc >> /etc/inputrc
 
-
 CMD [ "/opt/start-container.sh" ]
-
