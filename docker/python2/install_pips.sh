@@ -42,10 +42,10 @@ if [[ "${numpips}" != "0" ]]; then
     fi
 fi
 
-numpips=$(cat /opt/python2/ternary-requirements.txt | wc -l)
+numpips=$(cat /opt/python2/tertiary-requirements.txt | wc -l)
 if [[ "${numpips}" != "0" ]]; then
     echo "Installing Ternary set of pips(${numpips})"
-    ${curpip} install --upgrade -r /opt/python2/ternary-requirements.txt
+    ${curpip} install --upgrade -r /opt/python2/tertiary-requirements.txt
     last_status="$?"
     if [[ "${last_status}" != "0" ]]; then
         echo "Failed to install Ternary Python 2 requirements"
