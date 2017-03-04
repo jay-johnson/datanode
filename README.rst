@@ -113,14 +113,6 @@ Here's how to build, start, and stop the Docker container:
         iris.csv  spy.csv
         (venv)root:/opt/work# 
 
-#.  Disable auto-environment loading from the container
-
-    The command line tools were built to run outside and inside docker, if you are inside the container make sure to disable the container's auto-loading environment functionality by running:
-
-    ::
-
-        datanode $ export ENV_IN_DOCKER=0
-
 #.  Run an IRIS XGB Regression Analysis and Cache it in the Redis Labs Cloud
 
     ::
@@ -217,14 +209,6 @@ http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/
         datanode $ ./ssh.sh 
         SSH-ing into Docker image(datanode)
         (venv)root:/opt/work#
-
-#.  Disable auto-environment loading from the container
-
-    The command line tools were built to run outside and inside docker, if you are inside the container make sure to disable the container's auto-loading environment functionality by running:
-
-    ::
-
-        datanode $ export ENV_IN_DOCKER=0
 
 #.  Run the IRIS XGB Regression and Review the Plots
 
