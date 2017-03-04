@@ -6,6 +6,7 @@ docker/python2/pandas-datareader
 data/src/*.png
 data/dst/*.png
 data/src/spy.csv
+*.zlib.pickle
 
 *.pyc
 *.pyo
