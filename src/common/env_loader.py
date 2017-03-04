@@ -55,7 +55,7 @@ def load_env_for_deployment():
             env_file            = path_to_envs + str(target_env_file)
             if os.path.exists(env_file) == False:
                 for dir_test in env_paths_to_test:
-                    env_file    = str(dir_rest) + str(target_env_file)
+                    env_file    = str(dir_test) + str(target_env_file)
                     if os.path.exists(env_file) == True:
                         break
             # end of loading the env inside or outside docker
