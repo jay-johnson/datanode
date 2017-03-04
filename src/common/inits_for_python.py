@@ -21,6 +21,7 @@ import sys, os, datetime, requests, json, uuid, glob, argparse, copy, logging, t
 from time import sleep
 from sqlalchemy import Column, Integer, String, ForeignKey, Table, create_engine, MetaData, Date, DateTime, Float, cast, or_, and_, asc
 
+from src.common.env_loader      import *
 from src.common.shellprinting   import *
 from src.logger.logger          import Logger
 from src.pycore                 import PyCore
@@ -72,6 +73,9 @@ rd_enabled      = os.getenv("ENV_RDS_ENABLED", "1")
 lg_enabled      = os.getenv("ENV_SYSLOG_ENABLED", "1")
 logger_name     = os.getenv("ENV_PY_LOGGER_NAME", "ds")
 env_name        = os.getenv("ENV_DEPLOYMENT_TYPE", "Local")
+
+# Load env defaults if not inside docker
+load_env_for_deployment()
 
 core            = PyCore(core_config)
 now             = datetime.datetime.now()

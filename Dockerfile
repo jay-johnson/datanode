@@ -152,7 +152,7 @@ RUN chmod 777 /opt/tools/*.sh \
 
 RUN pushd /opt/python2 && /opt/python2/install_confluent_platform.sh && popd
 
-RUN virtualenv /venv && /opt/python2/install_pips.sh
+RUN virtualenv /venv && /opt/python2/install_pips.sh && /venv/bin/pip list
 
 RUN /venv/bin/pip freeze > /opt/shared/python2-requirements.txt 
 

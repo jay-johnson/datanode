@@ -11,9 +11,14 @@ ${curpip} list --format=columns
 echo ""
 
 echo "Installing pyxattr manually due to the -O2/-03 issue that is still in the 0.5.5 conda build: https://github.com/iustin/pyxattr/issues/13"
-pushd $ENV_SCP_VENV_PATH >> /dev/null
+pushd ../../$ENV_SCP_VENV_PATH >> /dev/null
 git clone https://github.com/iustin/pyxattr.git pyxattr
 ${curpip} install ./pyxattr
+last_status="$?"
+if [[ "${last_status}" != "0" ]]; then
+    echo "Failed to install Secondary Python 2 requirement: pyxattr"
+    exit 1
+fi
 popd
 
 numpips=$(cat ./primary-requirements.txt | wc -l)
@@ -51,6 +56,14 @@ fi
 
 echo "Installing custom pips that are in development"
 ${curpip} install --upgrade git+https://github.com/pydata/pandas-datareader.git
+
+echo "Installing Tensorflow"
+/opt/python2/install_tensorflow.sh
+last_status="$?"
+if [[ "${last_status}" != "0" ]]; then
+    echo "Failed to install Python 2: tensorflow"
+    exit 1
+fi
 
 echo "Listing updated version of installed pips:"
 ${curpip} list --format=columns

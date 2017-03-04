@@ -261,6 +261,152 @@ http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/
         Removing datanode ... done
         datanode $ 
 
+More Command Line Examples
+==========================
+
+Most of the notebooks and command line tools require running with a redis server listening on port 6000 (``<repo base dir>/dev-start.sh`` will start one). The command line versions that do not require docker or Jupyter can be found:
+
+::
+    
+    <repo base dir>
+    ├── bins
+    │   ├── demo-running-locally.py - Simple validate env is working test
+    │   ├── ml
+    │   │   ├── builders - Build and Train Models then Analyze Predictions without display any plotted images (automation examples)
+    │   │   │   ├── build-classifier-iris.py
+    │   │   │   ├── build-regressor-iris.py
+    │   │   │   ├── rl-build-regressor-iris.py
+    │   │   │   └── secure-rl-build-regressor-iris.py
+    │   │   ├── demo-ml-classifier-iris.py - Command line version of: ML-IRIS-Analysis-Workflow-Classification.ipynb
+    │   │   ├── demo-ml-regressor-iris.py - Command line version of: ML-IRIS-Analysis-Workflow-Regression.ipynb
+    │   │   ├── demo-rl-regressor-iris.py - Command line version of: ML-IRIS-Redis-Labs-Cache-XGB-Regressors.ipynb
+    │   │   ├── demo-secure-ml-regressor-iris.py - Demo with a Password-Required Redis Server running locally
+    │   │   ├── demo-secure-rl-regressor-iris.py - Demo with a Password-Required Redis Labs Cloud endpoint
+    │   │   ├── downloaders
+    │   │   │   ├── download_boston_house_prices.py
+    │   │   │   └── download_iris.py - Command line tool for downloading + preparing the IRIS dataset
+    │   │   ├── extractors
+    │   │   │   ├── extract_and_upload_iris_classifier.py - Command line version of: ML-IRIS-Extract-Models-From-Cache.ipynb (Classifier)
+    │   │   │   ├── extract_and_upload_iris_regressor.py - Command line version of: ML-IRIS-Extract-Models-From-Cache.ipynb (Regressor)
+    │   │   │   ├── rl_extract_and_upload_iris_regressor.py - Command line version of:  ML-IRIS-Redis-Labs-Extract-From-Cache.ipynb
+    │   │   │   └── secure_rl_extract_and_upload_iris_regressor.py - Command line version with a password for: ML-IRIS-Redis-Labs-Extract-From-Cache.ipynb 
+    │   │   ├── importers
+    │   │   │   ├── import_iris_classifier.py - ML-IRIS-Import-and-Cache-Models-From-S3.ipynb (Classifier)
+    │   │   │   ├── import_iris_regressor.py - ML-IRIS-Import-and-Cache-Models-From-S3.ipynb (Regressor)
+    │   │   │   ├── rl_import_iris_regressor.py - Command line version of: ML-IRIS-Redis-Labs-Import-From-S3.ipynb
+    │   │   │   └── secure_rl_import_iris_regressor.py - Command line version with a password for: ML-IRIS-Redis-Labs-Import-From-S3.ipynb
+    │   │   └── predictors
+    │   │       ├── predict-from-cache-iris-classifier.py - ML-IRIS-Predict-From-Cache-for-New-Predictions-and-Analysis-Classifier.ipynb (Classifier)
+    │   │       ├── predict-from-cache-iris-regressor.py - ML-IRIS-Predict-From-Cache-for-New-Predictions-and-Analysis-Regressor.ipynb (Regressor)
+    │   │       ├── rl-predict-from-cache-iris-regressor.py - Command line version of: ML-IRIS-Redis-Labs-Predict-From-Cached-XGB.ipynb
+    │   │       └── secure-rl-predict-from-cache-iris-regressor.py - Command line version with a password for: ML-IRIS-Redis-Labs-Predict-From-Cached-XGB.ipynb
+
+Authenticated Redis Examples
+============================
+
+You can lock redis down with a password by setting it in the redis.conf before starting the redis server (https://redis.io/topics/security#authentication-feature). Here is how to use the machine learning API with a password-locked Redis Labs endpoint or a local one.
+
+Environment Variables
+---------------------
+
+If you are running datanode in a docker container it will load the following env vars to ensure the redis application system's clients are setup with the password and database:
+
+::
+
+    # Redis Password where Empty = No Password like:
+    # ENV_REDIS_PASSWORD=
+    ENV_REDIS_PASSWORD=2603648a854c4f3ba7c93e8449319380
+    ENV_REDIS_DB_ID=0
+
+You can run without a password by either not defining the ``ENV_REDIS_PASSWORD`` environment variable or `making it set to an empty string`_.
+
+.. _making it set to an empty string: https://github.com/jay-johnson/datanode/blob/d8c750a25d7c46f34d86e8ff833580842b607366/src/connectors/redis/base_redis_application.py#L18-L21
+
+Using a Password-locked Redis Labs Cloud endpoint
+-------------------------------------------------
+
+#.  Run the Secure Redis Labs Cloud Demo
+
+    ::
+
+        bins/ml$ ./demo-secure-rl-regressor-iris.py
+
+#.  Connect to the Redis Labs Cloud endpoint
+
+    After running it you can verify the models were stored on the secured endpoint:
+
+    ::
+
+        $ redis-cli -h pub-redis-12515.us-west-2-1.1.ec2.garantiadata.com -p 12515
+
+#.  Verify the server is enforcing the password
+
+    ::
+
+        pub-redis-12515.us-west-2-1.1.ec2.garantiadata.com:12515> KEYS *
+        (error) NOAUTH Authentication required
+
+#.  Authenticate with the password
+
+    ::
+
+        pub-redis-12515.us-west-2-1.1.ec2.garantiadata.com:12515> auth 2603648a854c4f3ba7c93e8449319380
+        OK
+
+#.  View the redis keys
+
+    ::
+
+        pub-redis-12515.us-west-2-1.1.ec2.garantiadata.com:12515> KEYS *
+        1) "_MD_IRIS_REGRESSOR_PetalWidth"
+        2) "_MD_IRIS_REGRESSOR_PredictionsDF"
+        3) "_MD_IRIS_REGRESSOR_SepalWidth"
+        4) "_MODELS_IRIS_REGRESSOR_LATEST"
+        5) "_MD_IRIS_REGRESSOR_ResultTargetValue"
+        6) "_MD_IRIS_REGRESSOR_Accuracy"
+        7) "_MD_IRIS_REGRESSOR_PetalLength"
+        8) "_MD_IRIS_REGRESSOR_SepalLength"
+        pub-redis-12515.us-west-2-1.1.ec2.garantiadata.com:12515> exit
+        bins/ml$
+
+Local
+-----
+
+#.  You can run a password-locked, standalone redis server with docker compose using this script:
+        
+    https://github.com/jay-johnson/datanode/blob/master/bins/redis/auth-start.sh
+
+#.  Once the redis server is started you can run the local secure demo with the script:
+
+    ::
+
+        bins/ml$ ./demo-secure-ml-regressor-iris.py
+
+#.  After the demo finishes you can authenticate with the local redis server and view the cached models:
+
+    ::
+
+        bins/ml$ redis-cli -p 6400
+        127.0.0.1:6400> KEYS *
+        (error) NOAUTH Authentication required.
+        127.0.0.1:6400> AUTH 2603648a854c4f3ba7c93e8449319380
+        OK
+        127.0.0.1:6400> KEYS *
+        1) "_MD_IRIS_REGRESSOR_PetalWidth"
+        2) "_MD_IRIS_REGRESSOR_PetalLength"
+        3) "_MD_IRIS_REGRESSOR_PredictionsDF"
+        4) "_MD_IRIS_REGRESSOR_SepalWidth"
+        5) "_MODELS_IRIS_REGRESSOR_LATEST"
+        6) "_MD_IRIS_REGRESSOR_Accuracy"
+        7) "_MD_IRIS_REGRESSOR_ResultTargetValue"
+        8) "_MD_IRIS_REGRESSOR_SepalLength"
+        127.0.0.1:6400> exit
+        bins/ml$ 
+    
+#.  If you want to stop the redis server run:
+
+    https://github.com/jay-johnson/datanode/blob/master/bins/redis/stop.sh
+
 Action Hooks
 ------------
 
