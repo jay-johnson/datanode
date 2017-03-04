@@ -2,7 +2,7 @@ registry="docker.io"
 maintainer="jayjohnson"
 basename="datanode"
 imagename="datanode"
-version="1.0.2"
+version="1.0.3"
 
 export ENV_VERSION_TAG="${version}"
 export ENV_DEPLOYMENT_TYPE="DEV"

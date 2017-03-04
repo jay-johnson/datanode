@@ -15,6 +15,7 @@ services:
       - ${XAUTHORITY}:/root/.Xauthority
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./data:/opt/work/data
+      - ./env:/opt/work/env
       - ./bins:/opt/work/bins
       - ./configs:/opt/work/configs
       - ./src:/opt/work/src

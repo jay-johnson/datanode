@@ -103,6 +103,7 @@ RUN easy_install pip && \
 
 # Environment Deployment Type
 ENV ENV_DEPLOYMENT_TYPE DEV
+ENV ENV_IN_DOCKER 1
 ENV ENV_PROJ_DIR /opt/work
 ENV ENV_DATA_DIR /opt/work/data
 ENV ENV_DATA_SRC_DIR /opt/work/data/src
@@ -110,6 +111,7 @@ ENV ENV_DATA_DST_DIR /opt/work/data/dst
 ENV ENV_SRC_DIR /opt/work/src
 ENV ENV_THIRD_PARTY_DIR /opt/work/thirdparty
 ENV ENV_CONFIGS_DIR /opt/work/configs
+ENV ENV_CL_ENV_DIR /opt/work/env
 
 # Allow running starters from outside the container
 ENV ENV_BIN_DIR /opt/work/bins
@@ -136,6 +138,7 @@ RUN mkdir -p -m 777 /opt \
     && mkdir -p -m 777 /opt/work/data/dst \
     && mkdir -p -m 777 /opt/work/data/src \
     && mkdir -p -m 777 /opt/work/src \
+    && mkdir -p -m 777 /opt/work/env \
     && mkdir -p -m 777 /opt/work/thirdparty \
     && mkdir -p -m 777 /opt/shared \
     && mkdir -p -m 777 /opt/tools \
