@@ -320,7 +320,7 @@ If you are running datanode in a docker container it will load the following env
 
 You can run without a password by either not defining the ``ENV_REDIS_PASSWORD`` environment variable or `making it set to an empty string`_.
 
-.. _making it set to an empty string: https://github.com/jay-johnson/datanode/blob/d8c750a25d7c46f34d86e8ff833580842b607366/src/connectors/redis/base_redis_application.py#L18-L21
+.. _making it set to an empty string: https://github.com/jay-johnson/datanode/blob/f037c78ea9cd58875e7887db1a552815abf70d3d/src/connectors/redis/base_redis_application.py#L18-L21
 
 Using a Password-locked Redis Labs Cloud endpoint
 -------------------------------------------------

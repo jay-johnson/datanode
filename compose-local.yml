@@ -3,7 +3,7 @@ version: '2'
 services:
 
   datanode:
-    image: jayjohnson/datanode:1.0.1
+    image: jayjohnson/datanode:1.0.2
     container_name: "datanode"
     hostname: "datanode"
     env_file: 
