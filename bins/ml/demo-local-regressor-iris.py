@@ -74,7 +74,14 @@ if os.path.exists(ml_csv) == False:
     elif os.path.exists(os.getenv("ENV_DATANODE_REPO", "/opt/work") + "/data/examples/iris.csv"):
         org_path            = os.getenv("ENV_DATANODE_REPO", "/opt/work") + "/data/examples/iris.csv"
         os.system("cp " + str(org_path) + " " + ml_csv)
-# end of downloading from s3 if it's not locally available
+    else:
+        lg("Recreating iris dataset: /opt/work/bins/ml/downloaders/download_iris.py", 6)
+        os.system("/opt/work/bins/ml/downloaders/download_iris.py")
+        if os.path.exists(ml_csv) == False:
+            lg("Failed to recreate iris dataset with: /opt/work/bins/ml/downloaders/download_iris.py", 0)
+            lg("Stopping", 6)
+            sys.exit(1)
+# end of checking if the csv file is available
 
 lg("Processing ML Predictions for CSV(" + str(ml_csv) + ")", 6)
 
