@@ -1,3 +1,8 @@
+# This assumes the bash source command is running from the repo's base dir
+
+export ENV_DEPLOYMENT_TYPE=Local
+export ENV_CL_ENV_DIR=$(pwd)/env
+
 export ENV_SCP_VENV_BASE_DIR="."
 export ENV_SCP_VENV_NAME="dn-dev"
 export ENV_SCP_VENV_PATH="${ENV_SCP_VENV_BASE_DIR}/${ENV_SCP_VENV_NAME}"
