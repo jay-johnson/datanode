@@ -4,7 +4,7 @@ DataNode
 
 A python 2 container runtime for processing data science tasks and workloads. This repository builds a large (``~3.4 gb``) docker container hosting a virtual environment with a large number of data science pips installed. It is a no-ui backend processing workhorse for my https://github.com/jay-johnson/sci-pype analysis and tasks.
 
-I use this repository as a python 2 runtime with docker-compose to mount source, data, binaries, and third party libraries into known, pre-configured locations. I also mount my AWS + ssh keys and gitconfig so I can develop from inside the container (email me if you want that compose file).
+I use this repository as a python 2 runtime with docker-compose to mount source, data, binaries, and third party libraries into known, pre-configured locations. 
 
 Build
 =====
