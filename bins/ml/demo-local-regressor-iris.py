@@ -68,14 +68,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 if os.path.exists(ml_csv) == False:
-    s3_loc              = str(s3_bucket) + ":" + str(s3_key)
-    download_results    = core.s3_download_and_store_file(s3_loc, ml_csv, core.get_rds(), core.get_dbs(), debug)
-
-    if download_results["Status"] != "SUCCESS":
-        lg("ERROR: Stopping processing for errror: " + str(download_results["Error"]), 0)
-        sys.exit(1)
-    else:
-        ml_csv          = download_results["Record"]["File"]
+    if os.path.exists("/opt/work/data/examples/iris.csv"):
+        org_path            = "/opt/work/data/examples/iris.csv"
+        os.system("cp " + str(org_path) + " " + ml_csv)
+    elif os.path.exists(os.getenv("ENV_DATANODE_REPO", "/opt/work") + "/data/examples/iris.csv"):
+        org_path            = os.getenv("ENV_DATANODE_REPO", "/opt/work") + "/data/examples/iris.csv"
+        os.system("cp " + str(org_path) + " " + ml_csv)
 # end of downloading from s3 if it's not locally available
 
 lg("Processing ML Predictions for CSV(" + str(ml_csv) + ")", 6)

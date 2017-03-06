@@ -1,7 +1,14 @@
 # This assumes the bash source command is running from the repo's base dir
 
-export ENV_DEPLOYMENT_TYPE=Local
-export ENV_CL_ENV_DIR=$(pwd)/env
+if [[ "${ENV_DATANODE_REPO}" == "" ]]; then
+    export ENV_DATANODE_REPO=$(pwd)
+fi
+
+if [[ "${ENV_DEPLOYMENT_TYPE}" == "" ]]; then
+    export ENV_DEPLOYMENT_TYPE=Local
+fi
+
+export ENV_CL_ENV_DIR=${ENV_DATA_NODE_REPO}/env
 
 export ENV_SCP_VENV_BASE_DIR="."
 export ENV_SCP_VENV_NAME="dn-dev"
