@@ -104,6 +104,7 @@ RUN easy_install pip && \
 # Environment Deployment Type
 ENV ENV_DEPLOYMENT_TYPE DEV
 ENV ENV_IN_DOCKER 1
+ENV ENV_DEBUG_LOADING 0
 ENV ENV_PROJ_DIR /opt/work
 ENV ENV_DATA_DIR /opt/work/data
 ENV ENV_DATA_SRC_DIR /opt/work/data/src
