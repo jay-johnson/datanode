@@ -37,7 +37,7 @@ def load_env_for_specific_runtime():
                                                         "Name"  : "secure-redis-labs.env"
                                                     },
                                 "Local"             : {
-                                                        "Name"  : "dev.env"
+                                                        "Name"  : "local.env"
                                                     },
                                 "LocalSecure"       : {
                                                         "Name"  : "secure-dev.env"

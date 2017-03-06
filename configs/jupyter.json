@@ -28,11 +28,11 @@
             },
             "Local" : {
                 "Redis"     : "/opt/work/configs/local-redis.json",
-                "Database"  : "/opt/work/configs/db.json"
+                "Database"  : "/opt/work/configs/empty-db.json"
             },
             "LocalSecure" : {
                 "Redis"     : "/opt/work/configs/local-secure-redis.json",
-                "Database"  : "/opt/work/configs/db.json"
+                "Database"  : "/opt/work/configs/empty-db.json"
             },
             "Test"  : {
                 "Redis"     : "/opt/work/configs/redis.json",
