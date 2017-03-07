@@ -47,6 +47,22 @@ Here's how to run this locally inside a virtual environment:
         datanode $ source ./local-venv.sh 
         (dn-dev) datanode$ 
 
+#.  Setup the /opt/work symlink 
+
+    When running outside docker, I find it easiest to just symlink the repo's base dir to ``/opt/work`` to emulate the container's internal directory deployment structure. In a future release, a local-properties.sh file will set all the environment variables relative to the repository, but for now this works.
+    
+    ::
+
+        datanode$ ln -s $(pwd) /opt/work
+
+#.  Confirm the symlink is setup
+
+    ::
+
+        datanode$ ll /opt/work
+        lrwxrwxrwx 1 driver driver 32 Mar  6 22:38 /opt/work -> /home/driver/dev/datanode/
+        datanode$ 
+
 Build the Docker Container
 --------------------------
 
