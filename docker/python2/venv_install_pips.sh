@@ -19,7 +19,11 @@ if [[ "${last_status}" != "0" ]]; then
     echo "Failed to install Secondary Python 2 requirement: pyxattr"
     exit 1
 fi
-popd
+popd >> /dev/null
+
+${curpip} install --upgrade Cython
+${curpip} install --upgrade numpy==1.12.1rc1
+${curpip} install --upgrade scipy==0.19.0
 
 numpips=$(cat ./primary-requirements.txt | wc -l)
 if [[ "${numpips}" != "0" ]]; then
@@ -58,7 +62,7 @@ echo "Installing custom pips that are in development"
 ${curpip} install --upgrade git+https://github.com/pydata/pandas-datareader.git
 
 echo "Installing Tensorflow"
-/opt/python2/install_tensorflow.sh
+./install_tensorflow.sh
 last_status="$?"
 if [[ "${last_status}" != "0" ]]; then
     echo "Failed to install Python 2: tensorflow"

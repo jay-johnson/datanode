@@ -26,6 +26,10 @@ if [[ "${last_status}" != "0" ]]; then
 fi
 popd
 
+${curpip} install --upgrade Cython
+${curpip} install --upgrade numpy==1.12.1rc1
+${curpip} install --upgrade scipy==0.19.0
+
 numpips=$(cat /opt/python2/primary-requirements.txt | wc -l)
 if [[ "${numpips}" != "0" ]]; then
     echo "Installing Primary set of pips(${numpips})"
